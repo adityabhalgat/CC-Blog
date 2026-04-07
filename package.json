@@ -1,0 +1,19 @@
+{
+  "name": "blog-application",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace server\" \"npm run dev --workspace client\"",
+    "build": "npm run build --workspace client",
+    "start": "npm run start --workspace server",
+    "db:push": "npm run db:push --workspace server",
+    "db:studio": "npm run db:studio --workspace server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
