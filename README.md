@@ -49,7 +49,3 @@ npm run dev
 - `POST /posts`
 - `PUT /posts/:id`
 - `DELETE /posts/:id`
-
-## Deployment note
-
-This starter uses SQLite for easy local setup. For a cloud deployment, switch `DATABASE_URL` to a managed PostgreSQL database and keep the same Prisma model.
