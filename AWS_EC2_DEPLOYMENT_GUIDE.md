@@ -1,18 +1,13 @@
 init.sh
 
 #!/bin/bash
+echo "Starting Full Stack Deployment..."
 
-echo "🚀 Starting Full Stack Deployment..."
 
-# -------------------------------
-# 1. Update system
-# -------------------------------
 sudo apt update -y
 sudo apt install nginx git curl -y
 
-# -------------------------------
-# 2. Install NVM + Node 20
-# -------------------------------
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 
 export NVM_DIR="$HOME/.nvm"
@@ -22,30 +17,20 @@ nvm install 20
 nvm use 20
 nvm alias default 20
 
-# -------------------------------
-# 3. Fix RAM issue
-# -------------------------------
 sudo fallocate -l 1G /swapfile || true
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile || true
 sudo swapon /swapfile || true
 
-# -------------------------------
-# 4. Install PM2
-# -------------------------------
 npm install -g pm2
 
-# -------------------------------
-# 5. Clone repo
-# -------------------------------
+
 cd ~
 rm -rf CC-Blog
 git clone https://github.com/adityabhalgat/CC-Blog.git
 cd CC-Blog
 
-# -------------------------------
-# 6. Backend setup
-# -------------------------------
+
 cd server
 
 npm install
@@ -66,9 +51,7 @@ pm2 delete all
 pm2 start src/index.js --name blog-server
 pm2 save
 
-# -------------------------------
-# 7. Frontend (client)
-# -------------------------------
+
 cd ../client
 
 npm install
@@ -83,9 +66,7 @@ npm run build
 sudo rm -rf /var/www/html/*
 sudo cp -r dist/* /var/www/html/
 
-# -------------------------------
-# 8. Nginx config
-# -------------------------------
+
 sudo bash -c 'cat > /etc/nginx/sites-available/default' <<EOT
 server {
     listen 80;
@@ -119,7 +100,7 @@ pm2 sh
 
 #!/bin/bash
 
-echo "⚙️ Setting up PM2 startup..."
+echo " Setting up PM2 startup..."
 
 PM2_PATH="/home/ubuntu/.nvm/versions/node/v20.20.2"
 
